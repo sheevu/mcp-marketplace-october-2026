@@ -120,16 +120,16 @@ export function ComicMcpCard({ server, onQuickInstall }: ComicMcpCardProps) {
       />
 
       {/* Comic Top Sound Effect Banner */}
-      <div className="relative z-10 flex items-center justify-between px-4 pt-3.5 pb-2 border-b border-white/[0.08] bg-black/40">
+      <div className="relative z-10 flex items-center justify-between px-4 pt-3.5 pb-2.5 border-b border-white/[0.1] bg-black/50">
         <div className="flex items-center gap-2">
-          <span className="text-sm">{motif.iconEmoji}</span>
-          <span className="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-yellow-400 text-black border border-black shadow-[2px_2px_0px_0px_#000000] rotate-[-2deg]">
+          <span className="text-base">{motif.iconEmoji}</span>
+          <span className="px-2.5 py-0.5 rounded text-xs font-black uppercase tracking-wider bg-yellow-400 text-black border-2 border-black shadow-[2px_2px_0px_0px_#000000] rotate-[-2deg]">
             {motif.heroTag}
           </span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="text-[10px] font-mono font-bold text-amber-300 flex items-center gap-1">
-            <Flame className="w-3 h-3 text-amber-400" />
+          <span className="text-xs font-mono font-bold text-amber-300 flex items-center gap-1">
+            <Flame className="w-3.5 h-3.5 text-amber-400" />
             INDIA SUITE
           </span>
         </div>
@@ -140,57 +140,57 @@ export function ComicMcpCard({ server, onQuickInstall }: ComicMcpCardProps) {
         <div className="flex items-start justify-between gap-3">
           <div>
             <Link href={`/marketplace/${server.slug}`} className="group-hover:text-cyan-300 transition-colors">
-              <h3 className="text-lg font-black text-white tracking-tight flex items-center gap-1.5">
+              <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight flex items-center gap-2">
                 {server.name}
                 <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
               </h3>
             </Link>
-            <span className="text-[11px] font-medium text-zinc-400 block mt-0.5">
-              By <strong className="text-zinc-200">Sudarshan AI Labs</strong> • v{server.version}
+            <span className="text-xs font-medium text-zinc-300 block mt-1">
+              By <strong className="text-white">Sudarshan AI Labs</strong> • v{server.version}
             </span>
           </div>
 
           <div className="text-right shrink-0">
-            <span className="px-2.5 py-1 rounded-lg text-xs font-black uppercase tracking-wider bg-violet-500/20 text-violet-300 border border-violet-500/40 shadow-sm block">
+            <span className="px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-violet-500/25 text-violet-200 border border-violet-400/50 shadow-sm block">
               {server.pricing.priceInr ? `${formatInr(server.pricing.priceInr)}/mo` : "Free"}
             </span>
-            <span className="text-[9px] font-mono text-zinc-400 mt-0.5 block">GST Eligible</span>
+            <span className="text-[10px] font-mono font-medium text-zinc-300 mt-0.5 block">GST Eligible</span>
           </div>
         </div>
 
         {/* Tagline */}
-        <p className="text-xs text-zinc-300 leading-relaxed font-medium">
+        <p className="text-sm text-zinc-100 leading-relaxed font-normal">
           {server.tagline}
         </p>
 
         {/* Comic Dialogue Bubble (Agent Thought/Action) */}
-        <div className="relative rounded-xl bg-zinc-950/90 border border-violet-500/30 p-3 shadow-inner">
-          <div className="absolute -top-2 left-4 px-1.5 py-0.2 bg-violet-600 text-white font-mono text-[9px] font-bold rounded uppercase">
+        <div className="relative rounded-xl bg-zinc-950/95 border border-violet-400/40 p-3.5 shadow-inner">
+          <div className="absolute -top-2.5 left-4 px-2 py-0.5 bg-violet-600 text-white font-mono text-[10px] font-bold rounded uppercase">
             Live AI Dialog
           </div>
-          <p className="text-[11px] text-zinc-300 italic font-mono leading-snug pt-1">
+          <p className="text-xs text-zinc-100 font-sans leading-relaxed pt-1 font-medium">
             &ldquo;{motif.comicDialog}&rdquo;
           </p>
         </div>
 
         {/* Tools Badges with Comic Action Test */}
-        <div className="space-y-1.5">
-          <div className="flex items-center justify-between text-[11px]">
-            <span className="font-bold uppercase tracking-wider text-zinc-400">
+        <div className="space-y-2">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-bold uppercase tracking-wider text-zinc-200">
               Interactive Tools ({server.tools.length})
             </span>
-            <span className="font-mono text-[10px] text-cyan-400">STDIO PIPE</span>
+            <span className="font-mono text-xs font-semibold text-cyan-400">STDIO PIPE</span>
           </div>
 
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {server.tools.slice(0, 3).map((tool) => (
               <button
                 key={tool.name}
                 onClick={() => handleSimulateCall(tool.name)}
                 title="Click to test tool call"
-                className="group/btn px-2 py-1 rounded-md bg-zinc-900 hover:bg-violet-950/70 border border-zinc-700/80 hover:border-violet-400 text-[10px] font-mono text-zinc-300 hover:text-white flex items-center gap-1 transition-all"
+                className="group/btn px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-violet-950/80 border border-zinc-700 hover:border-violet-400 text-xs font-mono font-medium text-zinc-100 hover:text-white flex items-center gap-1.5 transition-all"
               >
-                <Play className="w-2.5 h-2.5 text-cyan-400 group-hover/btn:text-yellow-300" />
+                <Play className="w-3 h-3 text-cyan-400 group-hover/btn:text-yellow-300" />
                 <span>{tool.name}</span>
               </button>
             ))}
@@ -198,11 +198,11 @@ export function ComicMcpCard({ server, onQuickInstall }: ComicMcpCardProps) {
 
           {/* Test Simulation Terminal Result */}
           {testResult && (
-            <div className="p-2 rounded-lg bg-zinc-950 border border-emerald-500/40 text-[10px] font-mono text-emerald-300 animate-in fade-in flex items-center justify-between">
+            <div className="p-2.5 rounded-lg bg-zinc-950 border border-emerald-400/60 text-xs font-mono text-emerald-300 animate-in fade-in flex items-center justify-between">
               <span className="truncate">{testResult}</span>
               <button
                 onClick={() => setTestResult(null)}
-                className="text-[9px] text-zinc-500 hover:text-white ml-2 underline"
+                className="text-xs text-zinc-400 hover:text-white ml-2 underline"
               >
                 close
               </button>
@@ -212,11 +212,11 @@ export function ComicMcpCard({ server, onQuickInstall }: ComicMcpCardProps) {
       </div>
 
       {/* Card Action Footer */}
-      <div className="relative z-10 p-4 border-t border-white/[0.08] bg-black/40 flex items-center justify-between gap-2">
+      <div className="relative z-10 p-4 border-t border-white/[0.1] bg-black/50 flex items-center justify-between gap-3">
         <div className="flex items-center gap-1.5 text-xs text-amber-300 font-bold">
-          <Star className="w-3.5 h-3.5 fill-amber-300" />
+          <Star className="w-4 h-4 fill-amber-300" />
           <span>{server.stats.rating}</span>
-          <span className="text-[10px] text-zinc-400 font-normal">
+          <span className="text-xs text-zinc-300 font-normal">
             ({server.stats.downloads.toLocaleString()} installs)
           </span>
         </div>
@@ -225,7 +225,7 @@ export function ComicMcpCard({ server, onQuickInstall }: ComicMcpCardProps) {
           {onQuickInstall && (
             <button
               onClick={() => onQuickInstall(server)}
-              className="px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs border border-zinc-700 transition-colors flex items-center gap-1"
+              className="px-3.5 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs border border-zinc-600 transition-colors flex items-center gap-1.5"
             >
               <Terminal className="w-3.5 h-3.5 text-cyan-400" />
               <span>Install</span>
@@ -234,7 +234,7 @@ export function ComicMcpCard({ server, onQuickInstall }: ComicMcpCardProps) {
 
           <Link
             href={`/marketplace/${server.slug}`}
-            className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-600 hover:opacity-95 text-white font-bold text-xs shadow-md shadow-violet-600/20 transition-all flex items-center gap-1"
+            className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-600 hover:opacity-95 text-white font-bold text-xs shadow-md shadow-violet-600/20 transition-all flex items-center gap-1.5"
           >
             <span>Inspect</span>
             <ArrowUpRight className="w-3.5 h-3.5" />

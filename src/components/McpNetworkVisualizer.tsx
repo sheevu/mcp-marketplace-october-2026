@@ -335,17 +335,17 @@ export function McpNetworkVisualizer() {
       />
 
       {/* Top Protocol Status Bar */}
-      <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] pb-3 px-2 text-xs">
+      <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.1] pb-3 px-2 text-xs">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-400"></span>
           </span>
-          <span className="font-mono font-bold tracking-wide text-zinc-200">
+          <span className="font-mono font-semibold tracking-normal text-zinc-100 text-xs sm:text-sm">
             MCP Protocol Bus • JSON-RPC 2.0 Live Streaming
           </span>
         </div>
-        <div className="flex items-center gap-4 text-[11px] font-mono text-zinc-400">
+        <div className="flex items-center gap-4 text-xs font-mono font-medium text-zinc-300">
           <span className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-sky-400"></span> AI Clients
           </span>
@@ -409,15 +409,15 @@ export function McpNetworkVisualizer() {
                 />
               </div>
 
-              {/* Node Label Below */}
-              <div className="mt-2 text-center pointer-events-none">
+              {/* Node Label Below - High Visibility */}
+              <div className="mt-2.5 text-center pointer-events-none">
                 <span
-                  style={{ color: isHovered ? node.color : "#f1f5f9" }}
-                  className="text-xs font-bold tracking-tight block drop-shadow-md whitespace-nowrap transition-colors"
+                  style={{ color: isHovered ? node.color : "#ffffff" }}
+                  className="text-xs sm:text-sm font-bold tracking-tight block drop-shadow-md whitespace-nowrap transition-colors"
                 >
                   {node.label}
                 </span>
-                <span className="text-[10px] font-mono text-zinc-400 block whitespace-nowrap">
+                <span className="text-xs font-medium text-zinc-300 block whitespace-nowrap mt-0.5">
                   {node.subLabel}
                 </span>
               </div>
@@ -486,17 +486,17 @@ export function McpNetworkVisualizer() {
       </div>
 
       {/* Bottom Live Telemetry & Comic Action Bar */}
-      <div className="relative z-10 rounded-xl bg-zinc-950/90 border border-zinc-800/90 px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div className="relative z-10 rounded-xl bg-zinc-950/95 border border-zinc-700/80 px-4 py-3 flex flex-wrap items-center justify-between gap-3 text-xs">
         <div className="flex items-center gap-2 max-w-xl">
           <Terminal className="w-4 h-4 text-cyan-400 shrink-0 animate-pulse" />
-          <span className="text-zinc-500 font-mono">Telemetry:</span>
-          <span className="text-zinc-200 font-mono text-[11px] truncate">{activeMessage}</span>
+          <span className="text-zinc-300 font-mono font-bold">Telemetry:</span>
+          <span className="text-white font-mono text-xs font-medium truncate">{activeMessage}</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-[10px] font-mono text-zinc-400 hidden sm:inline">
+        <div className="flex items-center gap-3">
+          <span className="text-xs font-sans text-zinc-300 hidden sm:inline font-medium">
             Click any node to simulate tool dispatch
           </span>
-          <span className="px-2 py-0.5 text-[10px] font-mono font-bold bg-violet-600/30 text-violet-300 border border-violet-500/40 rounded">
+          <span className="px-2.5 py-1 text-xs font-mono font-bold bg-violet-600/40 text-violet-200 border border-violet-400/50 rounded">
             STDIO / SSE ROUTING
           </span>
         </div>

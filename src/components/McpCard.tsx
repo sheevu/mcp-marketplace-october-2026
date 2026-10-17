@@ -29,11 +29,11 @@ export function McpCard({ server, onQuickInstall }: McpCardProps) {
         {/* Top Badges & Publisher */}
         <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-zinc-800 text-zinc-300 border border-zinc-700">
+            <span className="px-2.5 py-0.5 rounded text-xs font-semibold bg-zinc-800/90 text-zinc-200 border border-zinc-700">
               {server.category}
             </span>
             {server.isIndianBusinessSuite && (
-              <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/30 flex items-center gap-1">
+              <span className="px-2.5 py-0.5 rounded text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                 India Suite
               </span>
@@ -43,11 +43,11 @@ export function McpCard({ server, onQuickInstall }: McpCardProps) {
           {/* Pricing tag */}
           <div className="text-right">
             {server.pricing.type === "free" ? (
-              <span className="text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
+              <span className="text-xs font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 rounded">
                 Free
               </span>
             ) : (
-              <span className="text-xs font-semibold text-cyan-300 bg-cyan-500/10 border border-cyan-500/20 px-2 py-0.5 rounded">
+              <span className="text-xs font-bold text-cyan-300 bg-cyan-500/15 border border-cyan-500/30 px-2.5 py-0.5 rounded">
                 {server.pricing.priceInr ? `${formatInr(server.pricing.priceInr)}/mo` : "Paid"}
               </span>
             )}
@@ -57,7 +57,7 @@ export function McpCard({ server, onQuickInstall }: McpCardProps) {
         {/* Header Title */}
         <div className="mb-2">
           <Link href={`/marketplace/${server.slug}`} className="block">
-            <h3 className="text-base font-bold text-white group-hover:text-violet-300 transition-colors flex items-center gap-2">
+            <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-violet-300 transition-colors flex items-center gap-2">
               {server.name}
               {server.publisher.verified && (
                 <span title="Verified Publisher">
@@ -66,32 +66,32 @@ export function McpCard({ server, onQuickInstall }: McpCardProps) {
               )}
             </h3>
           </Link>
-          <p className="text-xs text-zinc-400 flex items-center gap-1 mt-0.5">
-            By <span className="text-zinc-300 font-medium">{server.publisher.name}</span>
+          <p className="text-xs text-zinc-300 flex items-center gap-1 mt-1 font-medium">
+            By <strong className="text-white">{server.publisher.name}</strong>
           </p>
         </div>
 
         {/* Tagline / Description */}
-        <p className="text-xs text-zinc-400 line-clamp-2 leading-relaxed mb-4">
+        <p className="text-sm text-zinc-200 line-clamp-2 leading-relaxed mb-4 font-normal">
           {server.description}
         </p>
 
         {/* Available Tools Preview */}
         <div className="space-y-1.5 mb-4">
-          <span className="text-[11px] text-zinc-400 uppercase tracking-wider font-semibold">
+          <span className="text-xs text-zinc-300 uppercase tracking-wider font-semibold">
             Included Tools ({server.tools.length})
           </span>
           <div className="flex flex-wrap gap-1.5">
             {server.tools.slice(0, 3).map((tool) => (
               <span
                 key={tool.name}
-                className="px-2 py-0.5 rounded bg-zinc-900/90 text-[11px] font-mono text-zinc-300 border border-zinc-800"
+                className="px-2 py-0.5 rounded bg-zinc-900 text-xs font-mono font-medium text-zinc-100 border border-zinc-700/80"
               >
                 {tool.name}
               </span>
             ))}
             {server.tools.length > 3 && (
-              <span className="px-1.5 py-0.5 text-[11px] font-mono text-zinc-400">
+              <span className="px-1.5 py-0.5 text-xs font-mono font-medium text-zinc-300">
                 +{server.tools.length - 3} more
               </span>
             )}
@@ -100,14 +100,14 @@ export function McpCard({ server, onQuickInstall }: McpCardProps) {
       </div>
 
       {/* Card Footer Actions */}
-      <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2 text-xs text-zinc-400">
-          <span className="flex items-center gap-1 text-amber-300 font-medium">
+      <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 text-xs text-zinc-300 font-medium">
+          <span className="flex items-center gap-1 text-amber-300 font-bold">
             <Star className="w-3.5 h-3.5 fill-amber-300 text-amber-300" />
             {server.stats.rating}
           </span>
           <span>•</span>
-          <span className="font-mono text-[11px] text-zinc-400">
+          <span className="font-mono text-xs text-zinc-300">
             {server.transport.toUpperCase()}
           </span>
         </div>
