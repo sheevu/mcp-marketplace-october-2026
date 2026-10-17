@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Link from "next/link";
 import { MCP_SERVERS_CATALOG, CATEGORIES } from "@/data/mcpCatalog";
 import { McpServer, McpCategory, PublisherType } from "@/types/mcp";
 import { McpCard } from "@/components/McpCard";
@@ -21,7 +22,6 @@ export default function MarketplacePage() {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [selectedPublisherType, setSelectedPublisherType] = useState<string>("All");
-  const [selectedPricing, setSelectedPricing] = useState<string>("All");
   const [sortBy, setSortBy] = useState<"downloads" | "rating" | "name">("downloads");
   const [selectedServerForInstall, setSelectedServerForInstall] = useState<McpServer | null>(null);
 
@@ -44,24 +44,19 @@ export default function MarketplacePage() {
       const matchesPublisher =
         selectedPublisherType === "All" || server.publisher.type === selectedPublisherType;
 
-      // Pricing
-      const matchesPricing =
-        selectedPricing === "All" || server.pricing.type === selectedPricing;
-
-      return matchesSearch && matchesCategory && matchesPublisher && matchesPricing;
+      return matchesSearch && matchesCategory && matchesPublisher;
     }).sort((a, b) => {
       if (sortBy === "downloads") return b.stats.downloads - a.stats.downloads;
       if (sortBy === "rating") return b.stats.rating - a.stats.rating;
       if (sortBy === "name") return a.name.localeCompare(b.name);
       return 0;
     });
-  }, [search, selectedCategory, selectedPublisherType, selectedPricing, sortBy]);
+  }, [search, selectedCategory, selectedPublisherType, sortBy]);
 
   const resetFilters = () => {
     setSearch("");
     setSelectedCategory("All");
     setSelectedPublisherType("All");
-    setSelectedPricing("All");
     setSortBy("downloads");
   };
 
@@ -200,28 +195,22 @@ export default function MarketplacePage() {
             </div>
           </div>
 
-          {/* Pricing Model */}
-          <div className="space-y-2">
-            <label className="text-xs font-medium text-zinc-400">Pricing</label>
-            <div className="grid grid-cols-3 gap-1.5 text-xs">
-              {[
-                { label: "All", value: "All" },
-                { label: "Free", value: "free" },
-                { label: "Paid", value: "paid" },
-              ].map((price) => (
-                <button
-                  key={price.value}
-                  onClick={() => setSelectedPricing(price.value)}
-                  className={`px-2.5 py-1.5 rounded-lg border text-center transition-colors ${
-                    selectedPricing === price.value
-                      ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
-                      : "bg-zinc-950 text-zinc-400 border-zinc-800 hover:text-white hover:bg-zinc-900"
-                  }`}
-                >
-                  {price.label}
-                </button>
-              ))}
+          {/* Platform Access & Plans */}
+          <div className="p-3.5 rounded-xl bg-gradient-to-br from-violet-950/40 via-zinc-900/60 to-cyan-950/30 border border-violet-500/20 space-y-2">
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-violet-300">
+              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Builder & Team Plans</span>
             </div>
+            <p className="text-[11px] text-zinc-300 leading-relaxed">
+              Integrate all verified MCP servers with one-click multi-client config generators.
+            </p>
+            <Link
+              href="/pricing"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition-colors pt-1"
+            >
+              <span>Explore Platform Plans</span>
+              <span>&rarr;</span>
+            </Link>
           </div>
         </aside>
 

@@ -136,7 +136,7 @@ export function ComicMcpCard({ server, onQuickInstall }: ComicMcpCardProps) {
       </div>
 
       <div className="relative z-10 p-5 space-y-4">
-        {/* Title & Pricing Header */}
+        {/* Title & Status Header */}
         <div className="flex items-start justify-between gap-3">
           <div>
             <Link href={`/marketplace/${server.slug}`} className="group-hover:text-cyan-300 transition-colors">
@@ -151,10 +151,11 @@ export function ComicMcpCard({ server, onQuickInstall }: ComicMcpCardProps) {
           </div>
 
           <div className="text-right shrink-0">
-            <span className="px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-violet-500/25 text-violet-200 border border-violet-400/50 shadow-sm block">
-              {server.pricing.priceInr ? `${formatInr(server.pricing.priceInr)}/mo` : "Free"}
+            <span className="px-2.5 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 flex items-center gap-1 shadow-sm">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              Verified
             </span>
-            <span className="text-[10px] font-mono font-medium text-zinc-300 mt-0.5 block">GST Eligible</span>
+            <span className="text-[10px] font-mono font-medium text-zinc-300 mt-1 block">JSON-RPC 2.0</span>
           </div>
         </div>
 

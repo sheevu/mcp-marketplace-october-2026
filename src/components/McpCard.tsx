@@ -40,17 +40,12 @@ export function McpCard({ server, onQuickInstall }: McpCardProps) {
             )}
           </div>
 
-          {/* Pricing tag */}
+          {/* Protocol Badge */}
           <div className="text-right">
-            {server.pricing.type === "free" ? (
-              <span className="text-xs font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 rounded">
-                Free
-              </span>
-            ) : (
-              <span className="text-xs font-bold text-cyan-300 bg-cyan-500/15 border border-cyan-500/30 px-2.5 py-0.5 rounded">
-                {server.pricing.priceInr ? `${formatInr(server.pricing.priceInr)}/mo` : "Paid"}
-              </span>
-            )}
+            <span className="text-xs font-semibold text-cyan-300 bg-cyan-500/10 border border-cyan-500/30 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+              MCP Spec
+            </span>
           </div>
         </div>
 

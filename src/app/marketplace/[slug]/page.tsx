@@ -140,23 +140,19 @@ export default function McpDetailPage({ params }: { params: Promise<{ slug: stri
             </div>
           </div>
 
-          {/* Pricing Card */}
-          <div className="shrink-0 p-5 rounded-2xl bg-zinc-950/80 border border-white/[0.08] text-right space-y-3 min-w-[200px]">
-            <div className="text-xs text-zinc-400">Pricing Plan</div>
-            <div className="text-2xl font-extrabold text-white">
-              {server.pricing.type === "free" ? "Free" : formatInr(server.pricing.priceInr || 0)}
-              {server.pricing.billingPeriod && (
-                <span className="text-xs font-normal text-zinc-400"> /mo</span>
-              )}
+          {/* Access & Plan Card */}
+          <div className="shrink-0 p-5 rounded-2xl bg-zinc-950/80 border border-white/[0.08] text-right space-y-3 min-w-[220px]">
+            <div className="text-xs text-zinc-400">Platform Access</div>
+            <div className="text-sm font-bold text-emerald-400 flex items-center justify-end gap-1.5">
+              <CheckCircle2 className="w-4 h-4" />
+              Verified Protocol Server
             </div>
-            {server.pricing.type !== "free" && (
-              <Link
-                href="/pricing"
-                className="block w-full py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-semibold text-xs text-center transition-colors"
-              >
-                Purchase Access
-              </Link>
-            )}
+            <Link
+              href="/pricing"
+              className="block w-full py-2.5 rounded-xl bg-violet-600/25 hover:bg-violet-600 border border-violet-500/40 text-violet-200 hover:text-white font-semibold text-xs text-center transition-all shadow-sm"
+            >
+              View Builder &amp; Team Plans
+            </Link>
           </div>
         </div>
       </div>

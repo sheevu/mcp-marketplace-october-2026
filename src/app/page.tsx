@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { MCP_SERVERS_CATALOG, CATEGORIES } from "@/data/mcpCatalog";
 import { McpServer } from "@/types/mcp";
 import { McpCard } from "@/components/McpCard";
@@ -45,81 +46,192 @@ export default function HomePage() {
       )
     : [];
 
+  // Hero Stagger Animation Variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 22 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring" as const,
+        damping: 24,
+        stiffness: 180,
+      },
+    },
+  };
+
   return (
-    <div className="relative min-h-screen">
-      {/* Background atmospheric glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] bg-radial-gradient pointer-events-none -z-10" />
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Background atmospheric animated glows */}
+      <motion.div
+        animate={{
+          scale: [1, 1.15, 1],
+          opacity: [0.35, 0.55, 0.35],
+          x: ["-50%", "-48%", "-50%"],
+        }}
+        transition={{
+          duration: 9,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute top-0 left-1/2 w-full max-w-7xl h-[650px] bg-radial-gradient pointer-events-none -z-10 blur-2xl"
+      />
+
+      {/* Floating secondary ambient light orbs */}
+      <motion.div
+        animate={{
+          y: [0, -25, 0],
+          x: [0, 15, 0],
+          opacity: [0.2, 0.45, 0.2],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute top-20 left-10 w-72 h-72 rounded-full bg-violet-600/20 blur-3xl pointer-events-none -z-10"
+      />
+
+      <motion.div
+        animate={{
+          y: [0, 30, 0],
+          x: [0, -20, 0],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{
+          duration: 14,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
+        className="absolute top-40 right-10 w-80 h-80 rounded-full bg-cyan-500/15 blur-3xl pointer-events-none -z-10"
+      />
 
       {/* HERO SECTION */}
       <section className="relative pt-12 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center space-y-6 max-w-4xl mx-auto">
+        {/* Subtle decorative floating badges (Desktop) */}
+        <motion.div
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+          className="hidden xl:flex absolute top-28 left-6 items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-violet-500/30 text-[11px] font-mono text-violet-300 shadow-xl backdrop-blur-md pointer-events-none"
+        >
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>⚡ Anthropic MCP v1.0</span>
+        </motion.div>
+
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="hidden xl:flex absolute top-48 right-6 items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-cyan-500/30 text-[11px] font-mono text-cyan-300 shadow-xl backdrop-blur-md pointer-events-none"
+        >
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+          <span>🔒 Stdio Sandboxed</span>
+        </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="text-center space-y-6 max-w-4xl mx-auto"
+        >
           {/* Pill Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-violet-500/10 text-violet-300 border border-violet-500/30 shadow-lg shadow-violet-500/10">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Discover. Connect. Automate. Build.</span>
-            <span className="w-1 h-1 rounded-full bg-violet-400"></span>
-            <span className="text-zinc-400">India&apos;s First MCP Hub</span>
-          </div>
+          <motion.div variants={itemVariants} className="inline-block">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-violet-500/10 text-violet-300 border border-violet-500/30 shadow-lg shadow-violet-500/10 hover:border-violet-500/50 transition-colors">
+              <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-spin-slow" />
+              <span>Discover. Connect. Automate. Build.</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+              <span className="text-zinc-300">India&apos;s First MCP Hub</span>
+            </div>
+          </motion.div>
 
           {/* Headline */}
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
+          <motion.h1
+            variants={itemVariants}
+            className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.1]"
+          >
             The MCP Marketplace for the{" "}
-            <span className="bg-gradient-to-r from-violet-400 via-purple-300 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-violet-400 via-purple-300 to-cyan-400 bg-clip-text text-transparent drop-shadow-sm">
               AI-Powered Future
             </span>
-          </h1>
+          </motion.h1>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-lg text-zinc-200 max-w-2xl mx-auto leading-relaxed font-normal">
+          <motion.p
+            variants={itemVariants}
+            className="text-base sm:text-lg text-zinc-200 max-w-2xl mx-auto leading-relaxed font-normal"
+          >
             Discover, connect and build powerful AI integrations—all in one place. Connect Cursor, Claude Desktop, VS Code, and Codex CLI to your databases, APIs, and Indian enterprise workflows.
-          </p>
+          </motion.p>
 
-          {/* Hero CTAs */}
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-            <Link
-              href="/marketplace"
-              className="px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 via-purple-600 to-cyan-500 text-white font-semibold text-sm shadow-xl shadow-violet-600/25 hover:opacity-95 transition-all flex items-center gap-2"
-            >
-              <Layers className="w-4 h-4" />
-              <span>Explore MCP Catalog</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+          {/* Hero CTAs with Magnetic Spring & Hover Lift */}
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-wrap items-center justify-center gap-4 pt-2"
+          >
+            <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                href="/marketplace"
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 via-purple-600 to-cyan-500 text-white font-semibold text-sm shadow-xl shadow-violet-600/30 hover:shadow-cyan-500/20 transition-all flex items-center gap-2 relative group overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Layers className="w-4 h-4" />
+                <span>Explore MCP Catalog</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </motion.div>
 
-            <Link
-              href="/studio"
-              className="px-6 py-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700/80 font-semibold text-sm transition-all flex items-center gap-2"
-            >
-              <Terminal className="w-4 h-4 text-cyan-400" />
-              <span>Build Custom MCP</span>
-            </Link>
-          </div>
+            <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                href="/studio"
+                className="px-6 py-3 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 border border-zinc-700/80 font-semibold text-sm transition-all flex items-center gap-2 hover:border-zinc-500 shadow-md"
+              >
+                <Terminal className="w-4 h-4 text-cyan-400" />
+                <span>Build Custom MCP</span>
+              </Link>
+            </motion.div>
+          </motion.div>
 
-          {/* Global Search Bar with Live Suggestions */}
-          <div className="pt-6 max-w-2xl mx-auto relative">
-            <div className="relative flex items-center rounded-2xl bg-zinc-950/90 border border-white/[0.12] shadow-2xl p-2 focus-within:border-violet-500/70 focus-within:ring-2 focus-within:ring-violet-500/20 transition-all">
-              <Search className="w-5 h-5 text-zinc-500 ml-3" />
+          {/* Global Search Bar with Live Suggestions & Motion Glow */}
+          <motion.div variants={itemVariants} className="pt-6 max-w-2xl mx-auto relative">
+            <div className="relative flex items-center rounded-2xl bg-zinc-950/90 border border-white/[0.14] shadow-2xl p-2 focus-within:border-violet-500/80 focus-within:ring-4 focus-within:ring-violet-500/20 transition-all">
+              <Search className="w-5 h-5 text-zinc-400 ml-3 shrink-0" />
               <input
                 type="text"
                 placeholder="Search MCPs (e.g. GitHub, Supabase, WhatsApp, GST, Playwright)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-transparent px-4 py-2 text-sm text-white placeholder-zinc-500 focus:outline-none"
+                className="w-full bg-transparent px-4 py-2 text-sm text-white placeholder-zinc-400 focus:outline-none"
               />
-              <span className="hidden sm:inline-flex px-2 py-1 text-[11px] font-mono bg-zinc-900 text-zinc-400 rounded border border-zinc-800 mr-2">
-                21 Servers Verified
+              <span className="hidden sm:inline-flex px-2.5 py-1 text-[11px] font-mono font-medium bg-zinc-900 text-zinc-300 rounded-lg border border-zinc-800 mr-2 shrink-0">
+                21 Verified MCPs
               </span>
             </div>
 
             {/* Live Search Popup */}
             {searchQuery.trim().length > 0 && (
-              <div className="absolute top-full left-0 right-0 mt-2 z-30 rounded-2xl bg-[#090e1e] border border-white/[0.12] shadow-2xl p-3 text-left max-h-80 overflow-y-auto">
-                <div className="text-[11px] font-semibold uppercase text-zinc-500 px-3 py-1">
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="absolute top-full left-0 right-0 mt-2 z-30 rounded-2xl bg-[#090e1e] border border-white/[0.16] shadow-2xl p-3 text-left max-h-80 overflow-y-auto"
+              >
+                <div className="text-[11px] font-semibold uppercase text-zinc-400 px-3 py-1">
                   Matching MCP Servers ({searchResults.length})
                 </div>
                 {searchResults.length === 0 ? (
-                  <div className="p-4 text-center text-xs text-zinc-400">
+                  <div className="p-4 text-center text-xs text-zinc-300">
                     No MCP server found matching &ldquo;{searchQuery}&rdquo;. Need a custom one?{" "}
-                    <Link href="/studio" className="text-violet-400 underline">
+                    <Link href="/studio" className="text-violet-400 underline font-semibold">
                       Request custom development
                     </Link>
                   </div>
@@ -128,7 +240,7 @@ export default function HomePage() {
                     {searchResults.map((server) => (
                       <div
                         key={server.id}
-                        className="p-2.5 rounded-xl hover:bg-zinc-800/60 flex items-center justify-between transition-colors cursor-pointer"
+                        className="p-2.5 rounded-xl hover:bg-zinc-800/80 flex items-center justify-between transition-colors cursor-pointer"
                         onClick={() => setSelectedServerForInstall(server)}
                       >
                         <div>
@@ -138,24 +250,48 @@ export default function HomePage() {
                               ({server.category})
                             </span>
                           </div>
-                          <div className="text-xs text-zinc-400 truncate max-w-md">{server.tagline}</div>
+                          <div className="text-xs text-zinc-300 truncate max-w-md">{server.tagline}</div>
                         </div>
-                        <button className="px-2.5 py-1 text-xs rounded bg-violet-600/30 text-violet-300 border border-violet-500/40">
+                        <button className="px-3 py-1 text-xs font-semibold rounded-lg bg-violet-600/40 text-violet-200 border border-violet-500/50 hover:bg-violet-600/60">
                           Install
                         </button>
                       </div>
                     ))}
                   </div>
                 )}
-              </div>
+              </motion.div>
             )}
-          </div>
-        </div>
+          </motion.div>
+
+          {/* Quick Metrics Protocol Pills */}
+          <motion.div
+            variants={itemVariants}
+            className="pt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs font-medium text-zinc-300"
+          >
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-zinc-900/60 border border-zinc-800">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Official Anthropic Spec</span>
+            </div>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-zinc-900/60 border border-zinc-800">
+              <Zap className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Multi-Client Config Engines</span>
+            </div>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-zinc-900/60 border border-zinc-800">
+              <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
+              <span>Zero-Token Security</span>
+            </div>
+          </motion.div>
+        </motion.div>
 
         {/* HERO INTERACTIVE NETWORK CANVAS */}
-        <div className="mt-14 max-w-5xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          className="mt-14 max-w-5xl mx-auto"
+        >
           <McpNetworkVisualizer />
-        </div>
+        </motion.div>
       </section>
 
       {/* INDIA-FIRST FLAGSHIP SUITE — COMIC ART + MODERN MOTION GRAPHICS */}
