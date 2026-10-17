@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MCP_SERVERS_CATALOG, CATEGORIES } from "@/data/mcpCatalog";
 import { McpServer } from "@/types/mcp";
 import { McpCard } from "@/components/McpCard";
+import { ComicMcpCard } from "@/components/ComicMcpCard";
 import { McpNetworkVisualizer } from "@/components/McpNetworkVisualizer";
 import { InstallModal } from "@/components/InstallModal";
 import { formatInr } from "@/lib/utils";
@@ -157,33 +158,72 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* INDIA-FIRST FLAGSHIP SUITE */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/[0.06]">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-300 border border-amber-500/20 mb-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-              Sudarshan Flagship
+      {/* INDIA-FIRST FLAGSHIP SUITE — COMIC ART + MODERN MOTION GRAPHICS */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t-2 border-dashed border-violet-500/30 relative">
+        {/* Comic Speed Lines Accent Background */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-br from-amber-500/10 via-purple-600/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10" />
+
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 gap-6">
+          <div className="space-y-3">
+            {/* Comic Action Header Tag */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-3 py-1 rounded-md text-xs font-black uppercase tracking-wider bg-yellow-400 text-black border-2 border-black shadow-[3px_3px_0px_0px_#000000] rotate-[-2deg]">
+                💥 POWERED FOR BHARAT
+              </span>
+              <span className="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-violet-500/20 text-violet-300 border border-violet-500/40">
+                ⚡ COMIC ART MOTION EDITION
+              </span>
+              <span className="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                100% LIVE PROTOCOL SPEC
+              </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-              Indian Business & Enterprise Suite
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight flex items-center gap-3">
+              <span>Indian Business &amp; Enterprise Suite</span>
             </h2>
-            <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-              Purpose-built MCP integrations for Indian MSMEs, D2C brands, and tech enterprises.
+
+            <p className="text-sm text-zinc-300 max-w-2xl font-medium leading-relaxed">
+              Purpose-built MCP integrations for Indian startups, D2C brands, and MSMEs. Connect your AI coding agents directly to WhatsApp Cloud API, GST portals, Shiprocket logistics, and MCA filings.
             </p>
           </div>
-          <Link
-            href="/marketplace?category=Indian+Business+Automation"
-            className="text-xs font-semibold text-amber-300 hover:text-amber-200 flex items-center gap-1"
-          >
-            <span>View all Indian MCPs</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <Link
+              href="/marketplace?category=Indian+Business+Automation"
+              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:opacity-95 text-black font-black text-xs uppercase tracking-wider border-2 border-black shadow-[4px_4px_0px_0px_#000000] transition-all flex items-center gap-2"
+            >
+              <span>Explore All Indian MCPs</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Comic Motion Live Feature Ticker */}
+        <div className="mb-8 rounded-xl bg-zinc-950/90 border border-zinc-800 p-3 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-zinc-300 shadow-inner">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span className="text-zinc-400 font-bold">BHARAT ACTIVE CHANNELS:</span>
+          </div>
+          <div className="flex flex-wrap items-center gap-3 text-[11px]">
+            <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-emerald-400">
+              💬 WhatsApp Cloud API
+            </span>
+            <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-purple-300">
+              🛡️ GST 2025 Checksum Engine
+            </span>
+            <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-cyan-400">
+              🚀 Shiprocket AWB Logistics
+            </span>
+            <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-amber-300">
+              🔍 MCA CIN Corporate Intel
+            </span>
+          </div>
+        </div>
+
+        {/* High-Voltage Comic Art MCP Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
           {indianBusinessServers.map((server) => (
-            <McpCard
+            <ComicMcpCard
               key={server.id}
               server={server}
               onQuickInstall={(s) => setSelectedServerForInstall(s)}
